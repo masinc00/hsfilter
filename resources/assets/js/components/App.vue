@@ -6,18 +6,15 @@
                 <img src="loading.gif">
             </div>
         </div>
-        <div id="filter-result">
-            <ul>
-                <li v-for="item in filterResult">
-                    {{ item.name_enus }}
-                </li>
-            </ul>
-        </div>
+        <FilterResult v-model="filterResult"/>
     </div>
 </template>
 
 <script>
     Window._ = Window._ || require('lodash') 
+    
+    import FilterResult from "./FilterResult"
+
     export default {
         name : "App",
         data : function (){
@@ -45,6 +42,9 @@
                 this.filterResponse = null
                 //console.log(this.result)
                 }, 300)
+        },
+        components: {
+            FilterResult
         }
     }
 </script>
