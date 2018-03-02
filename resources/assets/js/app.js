@@ -15,8 +15,8 @@ window.Vue = require('vue');
  */
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
-import FilterBar from './components/filter-bar.vue'
-import ExampleComponent from './components/ExampleComponent.vue'
+// import FilterBar from './components/filter-bar.vue'
+// import ExampleComponent from './components/ExampleComponent.vue'
 // const app = new Vue({
 //     el: '#app'
 // });
@@ -24,18 +24,18 @@ import ExampleComponent from './components/ExampleComponent.vue'
 //Vue.component('filter-bar', FilterBar);
 
 
-
+import App from './components/App'
 // const filterbar = 
 new Vue({
 
-    el: '#filterbar',
+    el: '#app',
     //template: '<div> {{ h1 }} </div>',
     //data: { h1: "hello world" },
     //render: h => h(FilterBar)
     components: {
-        FilterBar
+        App
     },
-    template: '<filter-bar/>',
+    template: '<App/>',
     // data: {
     //     text: "",
     //     json: "",

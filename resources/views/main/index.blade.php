@@ -6,22 +6,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>hsfilter</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/app.css">
 
 </head>
 <body>
-
-
-    <div id="filterbar">
-        <filter-bar></filter-bar>
-    </div>
-
-    <ul id="resultlist">
-        <li v-for="item in items">
-            @{{ item.text }}
-        </li>
-    </ul>
+    <div id="app"></div>
     <script src="js/app.js"></script>    
-    <!-- <script src="js/axhr.js"></script> -->
 </body>
 </html>
