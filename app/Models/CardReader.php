@@ -1,4 +1,5 @@
 <?php
+//sqliteからカードデータを読み込む
 
 namespace App\Models;
 
@@ -20,8 +21,9 @@ class CardReader extends Model
     public function filter($params){
         
         $querys = array_map(function ($k, $v) {
+            //複数の言語に対応しているもの
             if ($k === 'name' || $k === 'text' || $k === 'flavor'):
-                return "where (${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";
+                return "where (${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";            
             else:
                 return "where ${k} like '%${v}%'";
             endif;
