@@ -1,7 +1,7 @@
 <template>
     <div class="FilterResultDetails" v-on:click="onClick">
         {{ value.name_enus }}
-        <table v-bind:class="visible">
+        <table v-bind:class="table_class">
             <tr v-for="(item, key) in value" >
                 <th>{{ key }}</th>
                 <td>{{ item }}</td>
@@ -16,18 +16,15 @@
         props: ["value"],
         data: function(){
             return {
-                visible: "hide"
+                table_class: {
+                    hide : true
+                }
             }
         },
 
         methods: {
             onClick: function (e){
-                if (this.visible === "hide"){
-                    this.visible = "";
-                } 
-                else {
-                    this.visible = "hide"
-                }
+                this.table_class.hide =  !this.table_class.hide
             }
         }   
     }

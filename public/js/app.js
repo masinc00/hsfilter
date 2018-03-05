@@ -31849,17 +31849,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ["value"],
     data: function data() {
         return {
-            visible: "hide"
+            table_class: {
+                hide: true
+            }
         };
     },
 
     methods: {
         onClick: function onClick(e) {
-            if (this.visible === "hide") {
-                this.visible = "";
-            } else {
-                this.visible = "hide";
-            }
+            this.table_class.hide = !this.table_class.hide;
         }
     }
 });
@@ -31879,7 +31877,7 @@ var render = function() {
       _vm._v("\n    " + _vm._s(_vm.value.name_enus) + "\n    "),
       _c(
         "table",
-        { class: _vm.visible },
+        { class: _vm.table_class },
         _vm._l(_vm.value, function(item, key) {
           return _c("tr", [
             _c("th", [_vm._v(_vm._s(key))]),
