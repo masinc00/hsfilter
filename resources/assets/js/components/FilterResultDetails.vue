@@ -33,7 +33,11 @@
 
 <style>
     .FilterResultDetailsTable{
-        border: solid 1px #333; 
+        border: solid 1px #99F; 
+    }
+
+    .FilterResultDetailsTable>tr, .FilterResultDetailsTable>tr>th, .FilterResultDetailsTable>tr>td{
+        border: solid 1px #ddd;
     }
     .FilterResultDetailsTable.hide{
         display: none;

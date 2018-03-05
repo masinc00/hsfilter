@@ -31826,7 +31826,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.FilterResultDetailsTable{\n    border: solid 1px #333;\n}\n.FilterResultDetailsTable.hide{\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\n.FilterResultDetailsTable{\n    border: solid 1px #99F;\n}\n.FilterResultDetailsTable>tr, .FilterResultDetailsTable>tr>th, .FilterResultDetailsTable>tr>td{\n    border: solid 1px #ddd;\n}\n.FilterResultDetailsTable.hide{\n    display: none;\n}\n", ""]);
 
 // exports
 
