@@ -1,6 +1,6 @@
 <template>
     <div id="Filterbar">
-        <input type="text" v-on:keyup="onKeyup">
+        <input id="Filterbar-input" type="text" v-on:keyup="onKeyup">
         <div id="Filterbar-loading" v-bind:class="loading_class">
             <img src="loading.gif">
         </div>
@@ -22,6 +22,7 @@ export default {
         }
     },
     methods :{
+
         onKeyup: async function(e){
             // console.log(e)
             await this.getApi(e.target.value)
@@ -29,15 +30,21 @@ export default {
             this.oldText = e.target.value;
                             
         },
+
+        //Apiから必要なjsonファイルを取得する
         getApi: _.debounce(async function (value) {
+            //準備処理
             // if (this.oldText === value)
                 // return
             if (this.filterResponse)
                 this.filterResponse.abort()
             //console.log(e.target.value + " - " + this.oldText)
             this.loading_class.hide = false
+            
+            //実際の処理
             const params = this.convertInputData(value)
-            if (params) {
+            // console.log(params)
+            if (Object.keys(params).length) {
                 // console.log(params);
                 const pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
                 console.log(pstr)
@@ -47,6 +54,7 @@ export default {
                 this.filterResponse = await axios.get('/api/v2?name=' + value)
             }
             this.filterResult = this.filterResponse.data;
+            //終了処理
             this.filterResponse = null
             this.loading_class.hide = true
 
@@ -69,7 +77,6 @@ export default {
                 })
             }
 
-
             return result
         }
     },
@@ -79,8 +86,14 @@ export default {
 <style>
     #Filterbar{
         display: flex;
+        width: 100%;
     }
     
+    #Filterbar-input {
+        width: 70%;
+        border-radius: 3px;
+    }
+
     #Filterbar-loading.hide {
         display: none;
     }
