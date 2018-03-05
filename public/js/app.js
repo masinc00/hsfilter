@@ -30683,7 +30683,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n#filter-bar{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n#filter-bar-loading.hide {\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -30727,19 +30727,10 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Filterbar__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Filterbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Filterbar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FilterResult__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FilterResult___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__FilterResult__);
-
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-//
-//
-//
-//
-//
 //
 //
 //
@@ -30752,82 +30743,22 @@ Window._ = Window._ || __webpack_require__(6);
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "App",
     data: function data() {
         return {
-            filterResponse: null,
-            filterResult: [],
-            oldText: "",
-            loading_class: {
-                hide: true
-            }
-
+            filterResult: []
         };
     },
     methods: {
-        onKeyup: function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(e) {
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                _context.next = 2;
-                                return this.getApi(e.target.value);
-
-                            case 2:
-
-                                this.oldText = e.target.value;
-
-                            case 3:
-                            case "end":
-                                return _context.stop();
-                        }
-                    }
-                }, _callee, this);
-            }));
-
-            function onKeyup(_x) {
-                return _ref.apply(this, arguments);
-            }
-
-            return onKeyup;
-        }(),
-        getApi: _.debounce(function () {
-            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(value) {
-                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-
-                                if (this.filterResponse) this.filterResponse.abort();
-                                //console.log(e.target.value + " - " + this.oldText)
-                                this.loading_class.hide = false;
-                                _context2.next = 4;
-                                return axios.get('/api/v2?name=' + value);
-
-                            case 4:
-                                this.filterResponse = _context2.sent;
-
-                                this.filterResult = this.filterResponse.data;
-                                this.filterResponse = null;
-                                this.loading_class.hide = true;
-                                //console.log(this.result)
-
-                            case 8:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, this);
-            }));
-
-            return function (_x2) {
-                return _ref2.apply(this, arguments);
-            };
-        }(), 300)
+        onGetApi: function onGetApi(result) {
+            // console.log("App", result)
+            this.filterResult = result;
+        }
     },
     components: {
+        Filterbar: __WEBPACK_IMPORTED_MODULE_0__Filterbar___default.a,
         FilterResult: __WEBPACK_IMPORTED_MODULE_1__FilterResult___default.a
     }
 });
@@ -31957,15 +31888,7 @@ var render = function() {
     "div",
     { attrs: { id: "App" } },
     [
-      _c("div", { attrs: { id: "filter-bar" } }, [
-        _c("input", { attrs: { type: "text" }, on: { keyup: _vm.onKeyup } }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { class: _vm.loading_class, attrs: { id: "filter-bar-loading" } },
-          [_c("img", { attrs: { src: "loading.gif" } })]
-        )
-      ]),
+      _c("Filterbar", { on: { onGetApi: _vm.onGetApi } }),
       _vm._v(" "),
       _c("FilterResult", {
         model: {
@@ -31995,6 +31918,230 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(63)
+}
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(65)
+/* template */
+var __vue_template__ = __webpack_require__(66)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\Filterbar.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0194d2b4", Component.options)
+  } else {
+    hotAPI.reload("data-v-0194d2b4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(64);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("e1b9675a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0194d2b4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Filterbar.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-0194d2b4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Filterbar.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n#Filterbar{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n#Filterbar-loading.hide {\n    display: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Window._ = Window._ || __webpack_require__(6);
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "Filterbar",
+    data: function data() {
+        return {
+            filterResponse: null,
+            filterResult: [],
+            oldText: "",
+            loading_class: {
+                hide: true
+            }
+        };
+    },
+    methods: {
+        onKeyup: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(e) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return this.getApi(e.target.value);
+
+                            case 2:
+
+                                this.oldText = e.target.value;
+
+                            case 3:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function onKeyup(_x) {
+                return _ref.apply(this, arguments);
+            }
+
+            return onKeyup;
+        }(),
+        getApi: _.debounce(function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(value) {
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+
+                                if (this.filterResponse) this.filterResponse.abort();
+                                //console.log(e.target.value + " - " + this.oldText)
+                                this.loading_class.hide = false;
+                                _context2.next = 4;
+                                return axios.get('/api/v2?name=' + value);
+
+                            case 4:
+                                this.filterResponse = _context2.sent;
+
+                                this.filterResult = this.filterResponse.data;
+                                this.filterResponse = null;
+                                this.loading_class.hide = true;
+
+                                // console.log("filterbar", this.filterResult)
+                                this.$emit("onGetApi", this.filterResult);
+                                //console.log(this.result)
+
+                            case 9:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            return function (_x2) {
+                return _ref2.apply(this, arguments);
+            };
+        }(), 300)
+    }
+});
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { attrs: { id: "Filterbar" } }, [
+    _c("input", { attrs: { type: "text" }, on: { keyup: _vm.onKeyup } }),
+    _vm._v(" "),
+    _c(
+      "div",
+      { class: _vm.loading_class, attrs: { id: "Filterbar-loading" } },
+      [_c("img", { attrs: { src: "loading.gif" } })]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-0194d2b4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
