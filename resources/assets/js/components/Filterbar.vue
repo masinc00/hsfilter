@@ -29,7 +29,8 @@ export default {
                             
         },
         getApi: _.debounce(async function (value) {
-
+            if (this.oldText === value)
+                return
             if (this.filterResponse)
                 this.filterResponse.abort()
             //console.log(e.target.value + " - " + this.oldText)

@@ -32080,14 +32080,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
+                                if (!(this.oldText === value)) {
+                                    _context2.next = 2;
+                                    break;
+                                }
 
+                                return _context2.abrupt("return");
+
+                            case 2:
                                 if (this.filterResponse) this.filterResponse.abort();
                                 //console.log(e.target.value + " - " + this.oldText)
                                 this.loading_class.hide = false;
-                                _context2.next = 4;
+                                _context2.next = 6;
                                 return axios.get('/api/v2?name=' + value);
 
-                            case 4:
+                            case 6:
                                 this.filterResponse = _context2.sent;
 
                                 this.filterResult = this.filterResponse.data;
@@ -32098,7 +32105,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                                 this.$emit("onGetApi", this.filterResult);
                                 //console.log(this.result)
 
-                            case 9:
+                            case 11:
                             case "end":
                                 return _context2.stop();
                         }
