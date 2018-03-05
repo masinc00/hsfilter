@@ -13,6 +13,7 @@ class CardReader extends Model
     private function __construct(){
         $this->path = public_path('storage/cards.sqlite');
         $this->pdo = new \PDO("sqlite:" . $this->path);
+        // $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
     /**
@@ -23,14 +24,16 @@ class CardReader extends Model
         $querys = array_map(function ($k, $v) {
             //複数の言語に対応しているもの
             if ($k === 'name' || $k === 'text' || $k === 'flavor'):
-                return "where (${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";            
+                return "(${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";
+            elseif ($k === 'cost' || $k === 'attack' || $k === 'health'):
+                return "${k} = ${v}";            
             else:
-                return "where ${k} like '%${v}%'";
+                return "${k} like '%${v}%'";
             endif;
         }, array_keys($params), array_values($params));
-
-        $query_str = "select * from cards " . join(" and ", $querys);
-        // return $query_str;
+        
+        $query_str = "select * from cards where " . join(" and ", $querys);
+        //return $query_str;
         return $this->pdo->query($query_str)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
