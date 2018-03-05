@@ -8,6 +8,7 @@
 </template>
 
 <script>
+Window._ = Window._ || require('lodash');
 export default {
     name: "Filterbar",
     data : function (){
@@ -22,20 +23,29 @@ export default {
     },
     methods :{
         onKeyup: async function(e){
-            // console.log(response)
+            // console.log(e)
             await this.getApi(e.target.value)
-
+            
             this.oldText = e.target.value;
                             
         },
         getApi: _.debounce(async function (value) {
-            if (this.oldText === value)
-                return
+            // if (this.oldText === value)
+                // return
             if (this.filterResponse)
                 this.filterResponse.abort()
             //console.log(e.target.value + " - " + this.oldText)
             this.loading_class.hide = false
-            this.filterResponse = await axios.get('/api/v2?name=' + value)
+            const params = this.convertInputData(value)
+            if (params) {
+                // console.log(params);
+                const pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
+                console.log(pstr)
+                this.filterResponse = await axios.get('/api/v2?' + pstr)                
+            }
+            else{
+                this.filterResponse = await axios.get('/api/v2?name=' + value)
+            }
             this.filterResult = this.filterResponse.data;
             this.filterResponse = null
             this.loading_class.hide = true
@@ -43,7 +53,25 @@ export default {
             // console.log("filterbar", this.filterResult)
             this.$emit("onGetApi", this.filterResult)           
             //console.log(this.result)
-            }, 300)
+            }, 300),
+
+        convertInputData: function (value){
+            let result = {}
+            
+            // 5/3/5のような形式
+            const stats = value.match(/(\d+)\/(\d+)\/(\d+)/)
+            if (stats){
+                console.log(stats)
+                Object.assign(result, {
+                    cost : stats[1],
+                    attack : stats[2],
+                    health : stats[3]
+                })
+            }
+
+
+            return result
+        }
     },
 }
 </script>

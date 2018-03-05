@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 
-window._ = require('lodash');
+window._ = Window._ || require('lodash');
 window.Vue = require('vue');
 
 /**
