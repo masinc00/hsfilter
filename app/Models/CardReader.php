@@ -33,7 +33,7 @@ class CardReader extends Model
         }, array_keys($params), array_values($params));
         
         $query_str = "select * from cards where " . join(" and ", $querys);
-        //return $query_str;
+        // return $query_str;
         return $this->pdo->query($query_str)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
