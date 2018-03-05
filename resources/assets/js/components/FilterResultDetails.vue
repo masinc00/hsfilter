@@ -17,6 +17,7 @@
         data: function(){
             return {
                 table_class: {
+                    FilterResultDetailsTable: true,
                     hide : true
                 }
             }
@@ -31,7 +32,10 @@
 </script>
 
 <style>
-    .hide{
+    .FilterResultDetailsTable{
+        border: solid 1px #333; 
+    }
+    .FilterResultDetailsTable.hide{
         display: none;
     }
 </style>

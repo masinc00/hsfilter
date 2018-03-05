@@ -30683,7 +30683,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n#filter-bar{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n", ""]);
+exports.push([module.i, "\n#filter-bar{\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n}\n#filter-bar-loading.hide {\n    display: none;\n}\n", ""]);
 
 // exports
 
@@ -30758,7 +30758,10 @@ Window._ = Window._ || __webpack_require__(6);
         return {
             filterResponse: null,
             filterResult: [],
-            oldText: ""
+            oldText: "",
+            loading_class: {
+                hide: true
+            }
 
         };
     },
@@ -30796,19 +30799,22 @@ Window._ = Window._ || __webpack_require__(6);
                     while (1) {
                         switch (_context2.prev = _context2.next) {
                             case 0:
+
                                 if (this.filterResponse) this.filterResponse.abort();
                                 //console.log(e.target.value + " - " + this.oldText)
-                                _context2.next = 3;
+                                this.loading_class.hide = false;
+                                _context2.next = 4;
                                 return axios.get('/api/v2?name=' + value);
 
-                            case 3:
+                            case 4:
                                 this.filterResponse = _context2.sent;
 
                                 this.filterResult = this.filterResponse.data;
                                 this.filterResponse = null;
+                                this.loading_class.hide = true;
                                 //console.log(this.result)
 
-                            case 6:
+                            case 8:
                             case "end":
                                 return _context2.stop();
                         }
@@ -31820,7 +31826,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.hide{\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\n.FilterResultDetailsTable{\n    border: solid 1px #333;\n}\n.FilterResultDetailsTable.hide{\n    display: none;\n}\n", ""]);
 
 // exports
 
@@ -31850,6 +31856,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             table_class: {
+                FilterResultDetailsTable: true,
                 hide: true
             }
         };
@@ -31953,7 +31960,11 @@ var render = function() {
       _c("div", { attrs: { id: "filter-bar" } }, [
         _c("input", { attrs: { type: "text" }, on: { keyup: _vm.onKeyup } }),
         _vm._v(" "),
-        _vm._m(0)
+        _c(
+          "div",
+          { class: _vm.loading_class, attrs: { id: "filter-bar-loading" } },
+          [_c("img", { attrs: { src: "loading.gif" } })]
+        )
       ]),
       _vm._v(" "),
       _c("FilterResult", {
@@ -31969,16 +31980,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "filter-bar-loading" } }, [
-      _c("img", { attrs: { src: "loading.gif" } })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
