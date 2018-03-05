@@ -58,6 +58,7 @@ export default {
             this.filterResponse = null
             this.loading_class.hide = true
 
+            //親にデータを取得したことを通知
             // console.log("filterbar", this.filterResult)
             this.$emit("onGetApi", this.filterResult)           
             //console.log(this.result)
@@ -87,10 +88,12 @@ export default {
     #Filterbar{
         display: flex;
         width: 100%;
+        height: 1.2em;
     }
     
     #Filterbar-input {
         width: 70%;
+        height: 100%;
         border-radius: 3px;
     }
 
