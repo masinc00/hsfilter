@@ -8,7 +8,6 @@
 </template>
 
 <script>
-Window._ = Window._ || require('lodash')
 export default {
     name: "Filterbar",
     data : function (){

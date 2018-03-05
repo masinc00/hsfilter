@@ -18506,6 +18506,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __webpack_require__(15);
 
+window._ = __webpack_require__(6);
 window.Vue = __webpack_require__(36);
 
 /**
@@ -18546,8 +18547,6 @@ new Vue({
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-window._ = __webpack_require__(6);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -30739,7 +30738,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-Window._ = Window._ || __webpack_require__(6);
+// Window._ = Window._ || require('lodash') 
 
 
 
@@ -32035,7 +32034,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 
-Window._ = Window._ || __webpack_require__(6);
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "Filterbar",
     data: function data() {
