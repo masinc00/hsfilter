@@ -6,8 +6,6 @@
 </template>
 
 <script>
-    // Window._ = Window._ || require('lodash') 
-    
     import Filterbar from "./Filterbar"
     import FilterResult from "./FilterResult"
 
