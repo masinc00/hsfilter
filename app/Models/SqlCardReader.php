@@ -1,18 +1,16 @@
 <?php
 //sqliteからカードデータを読み込む
+//todo: 複数テーブルに対応する
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 // use Illuminate\Filesystem\Filesystem;
 
-class CardReader extends Model
+class SqlCardReader extends Model
 {
-    private $path;
-    private $pdo;
     private function __construct(){
-        $this->path = public_path('storage/cards.sqlite');
-        $this->pdo = new \PDO("sqlite:" . $this->path);
         // $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
@@ -34,7 +32,7 @@ class CardReader extends Model
         
         $query_str = "select * from cards where " . join(" and ", $querys);
         // return $query_str;
-        return $this->pdo->query($query_str)->fetchAll(\PDO::FETCH_ASSOC);
+        return DB::select($query_str);
     }
 
     static $cardReader;
