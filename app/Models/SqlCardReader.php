@@ -25,6 +25,7 @@ class SqlCardReader extends Model
             //複数の言語に対応しているもの
             if ($k === 'name' || $k === 'text' || $k === 'flavor'):
                 return "(${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";
+            //数値型はそのまま比較する
             elseif ($k === 'cost' || $k === 'attack' || $k === 'health'):
                 return "${k} = ${v}";            
             else:
