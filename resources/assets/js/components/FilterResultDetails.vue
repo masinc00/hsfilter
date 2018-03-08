@@ -1,6 +1,6 @@
 <template>
     <div class="FilterResultDetails" v-on:click="onClick">
-        {{ value.name_enus }}
+        {{ value.name_enUS }}
         <table v-bind:class="table_class">
             <tr v-for="(item, key) in value" >
                 <th>{{ key }}</th>

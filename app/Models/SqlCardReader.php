@@ -27,12 +27,16 @@ class SqlCardReader extends Model
                 return "(${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";
             //数値型はそのまま比較する
             elseif ($k === 'cost' || $k === 'attack' || $k === 'health'):
+                //ワイルドカード時は何も返さない
+                if ($v === '*')
+                    return "";
                 return "${k} = ${v}";            
             else:
                 return "${k} like '%${v}%'";
             endif;
         }, array_keys($params), array_values($params));
-        
+        //空要素を削除する
+        $querys = array_filter($querys);
         $query_str = "select * from ".  $this->table_name . " where " . join(" and ", $querys);
         // return $query_str;
         return DB::select($query_str);
@@ -41,7 +45,7 @@ class SqlCardReader extends Model
     static $cardReader;
     public static function get($table_name = "cards"){
         if (!isset($cardReader)){
-            $cardReader = new CardReader();
+            $cardReader = new SqlCardReader($table_name);
         }
         return $cardReader;
     }

@@ -36,9 +36,12 @@ export default {
             //準備処理
             // if (this.oldText === value)
                 // return
+            //前のリクエストが継続している場合終了する
             if (this.filterResponse)
                 this.filterResponse.abort()
             //console.log(e.target.value + " - " + this.oldText)
+
+            //ローディングイメージを隠さない
             this.loading_class.hide = false
             
             //実際の処理
@@ -46,7 +49,8 @@ export default {
             // console.log(params)
             if (Object.keys(params).length) {
                 // console.log(params);
-                const pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
+                let pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
+                //pstr = encodeURIComponent(pstr);
                 console.log(pstr)
                 this.filterResponse = await axios.get('/api/v2?' + pstr)                
             }
@@ -54,6 +58,7 @@ export default {
                 this.filterResponse = await axios.get('/api/v2?name=' + value)
             }
             this.filterResult = this.filterResponse.data;
+            // console.log(this.filterResult);
             //終了処理
             this.filterResponse = null
             this.loading_class.hide = true
@@ -64,11 +69,12 @@ export default {
             //console.log(this.result)
             }, 300),
 
+        //特殊な入力データを加工する
         convertInputData: function (value){
             let result = {}
             
             // 5/3/5のような形式
-            const stats = value.match(/(\d+)\/(\d+)\/(\d+)/)
+            const stats = value.match(/([\d]+|\*)\/(\d+|\*)\/([\d\*]+|\*)/)
             if (stats){
                 console.log(stats)
                 Object.assign(result, {
