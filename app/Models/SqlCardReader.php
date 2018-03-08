@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\DB;
 
 class SqlCardReader extends Model
 {
-    private function __construct(){
+    private $table_name;
+    private function __construct($table_name){
         // $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->table_name = $table_name;
     }
 
     /**
@@ -30,13 +32,13 @@ class SqlCardReader extends Model
             endif;
         }, array_keys($params), array_values($params));
         
-        $query_str = "select * from cards where " . join(" and ", $querys);
+        $query_str = "select * from ".  $this->table_name . " where " . join(" and ", $querys);
         // return $query_str;
         return DB::select($query_str);
     }
 
     static $cardReader;
-    public static function get(){
+    public static function get($table_name = "cards"){
         if (!isset($cardReader)){
             $cardReader = new CardReader();
         }
