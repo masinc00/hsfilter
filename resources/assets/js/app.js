@@ -6,8 +6,11 @@
 
 require('./bootstrap');
 
-window._ = Window._ || require('lodash');
+window._ = window._ || require('lodash');
 window.Vue = require('vue');
+
+import AsyncComputed from 'vue-async-computed'
+window.Vue.use(AsyncComputed)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
