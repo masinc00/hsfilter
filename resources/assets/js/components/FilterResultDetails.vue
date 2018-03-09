@@ -1,6 +1,13 @@
 <template>
     <div class="FilterResultDetails" >
-        <div class="FilterResultSimpleDetail" v-on:click="onClick">{{ value.name_enUS }}</div>
+        <div class="FilterResultSimpleDetail" v-on:click="onClick">
+            <div>
+                {{ value.name_enUS }}
+            </div>
+            <div class="FilterResultSimpleDetailStats">
+                ({{ value.cost}}/{{ value.attack}}/{{ value.health}})
+            </div>
+        </div>
         <transition name="fade-details">
             <div v-if="!detail_class.hide" v-bind:class="detail_class">
                 <div class="FilterResultsImages">
@@ -80,6 +87,9 @@
 </script>
 
 <style>
+    .FilterResultSimpleDetail{
+        display: flex;
+    }
     .FilterResultDetailsTable{
         border: solid 1px #99F; 
     }
