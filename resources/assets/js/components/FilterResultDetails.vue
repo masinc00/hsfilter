@@ -1,13 +1,18 @@
 <template>
-    <div class="FilterResultDetails" v-on:click="onClick">
-        {{ value.name_enUS }}
-        <img v-bind:src="imageUrl">
-        <table v-bind:class="table_class">
-            <tr v-for="(item, key) in value" >
-                <th>{{ key }}</th>
-                <td>{{ item }}</td>
-            </tr>
-        </table>
+    <div class="FilterResultDetails" >
+        <div class="FilterResultSimpleDetail" v-on:click="onClick">{{ value.name_enUS }}</div>
+        <div v-if="!detail_class.hide" v-bind:class="detail_class">
+            <div class="FilterResultsImages">
+                <img v-bind:class="nomalImagesClass" v-bind:src="imageUrl">
+                <img v-bind:class="goldenImagesClass" v-bind:src="ImageUrlGolden">
+            </div>
+            <table class="FilterResultDetailsTable">
+                <tr v-for="(item, key) in value" >
+                    <th>{{ key }}</th>
+                    <td>{{ item }}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 </template>
 
@@ -18,22 +23,38 @@
         props: ["value"],
         data: function(){
             return {
-                table_class: {
-                    FilterResultDetailsTable: true,
+                detail_class: {
+                    FilterResultDetailsDetail: true,
                     hide : true,
                     //image_url : (async () =>{return await this.getImageUrl()})(),
+                },
+
+                nomalImagesClass: {
+                    hide : this.hasImageUrl
+                },
+
+                goldenImagesClass: {
+                    hide : this.hasImageUrlGolden
                 }
             }
         },
 
         methods: {
             onClick: function (e){
-                this.table_class.hide =  !this.table_class.hide
+                this.detail_class.hide =  !this.detail_class.hide
             },
         },
         computed: {
             hhJson: function (){
-                return new HearthHeadJson(this.value.name_enUS)
+                return new HearthHeadJson(this.value.name_enUS, this.value.id)
+            },
+
+            hasImageUrl : function(){
+                return (bool)(this.imageUrl)
+            },
+
+            hasImageUrlGolden : function(){
+                return (bool)(this.ImageUrlGolden)
             }
         },
 
@@ -41,8 +62,14 @@
             imageUrl: {
                 lazy: true,
                 get: async function(){
-                return await this.hhJson.getImageUrl(false)
-                // return result;
+                    return this.hhJson.getImageUrlFromId(false)
+                }
+            },
+
+            ImageUrlGolden: {
+                lazy: true,
+                get: async function(){
+                    return this.hhJson.getImageUrlFromId(true)
                 }
             }
             
@@ -58,7 +85,12 @@
     .FilterResultDetailsTable>tr, .FilterResultDetailsTable>tr>th, .FilterResultDetailsTable>tr>td{
         border: solid 1px #ddd;
     }
-    .FilterResultDetailsTable.hide{
+    .FilterResultDetailsDetail.hide,
+    .FilterResultsImages>img.hide{
         display: none;
+    }
+
+    .FilterResultsImages{
+        display: flex;
     }
 </style>
