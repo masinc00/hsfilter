@@ -7,3 +7,27 @@
 
 // Bootstrap
 // @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+*{
+    font-family: 'Raleway','Arial','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3',YuGothic,'Yu Gothic','メイリオ', Meiryo,sans-serif;
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+    color: $text-color;
+}
+
+body{
+    background-color: $body-bg;
+}
+
+input {
+    border: solid 1px $input-border;
+}
+
+input:placeholder-shown{
+    opacity: 0.54;
+    font-size: 0.9em;
+}
+
+input:focus{
+    border: solid 1px $input-border-focus;
+}
