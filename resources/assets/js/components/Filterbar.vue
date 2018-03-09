@@ -1,9 +1,13 @@
 <template>
     <div id="Filterbar">
-        <input id="Filterbar-input" type="text" v-on:keyup="onKeyup">
+        <input id="Filterbar-input" type="text" v-on:keyup="onKeyup" placeholder="検索文字列を入力してください">
         <div id="Filterbar-loading" v-bind:class="loading_class">
             <img src="loading.gif">
         </div>
+        <div id="Filterbar-collectible-box">
+        <label id="Filterbar-collectible-label" for="Filterbar-collectible-check"> コレクション可能カードのみ:</label>
+        <input type="checkbox" id="Filterbar-collectible-check" v-model="isCollectible">
+        </div>        
     </div>
 </template>
 
@@ -19,6 +23,7 @@ export default {
             loading_class : {
                 hide : true,
             },            
+            isCollectible : true,
         }
     },
     methods :{
@@ -46,17 +51,15 @@ export default {
             
             //実際の処理
             const params = this.convertInputData(value)
-            // console.log(params)
-            if (Object.keys(params).length) {
-                // console.log(params);
-                let pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
-                //pstr = encodeURIComponent(pstr);
-                console.log(pstr)
-                this.filterResponse = await axios.get('/api/v2?' + pstr)                
+            if (params.length === 0){
+                return;
             }
-            else{
-                this.filterResponse = await axios.get('/api/v2?name=' + value)
-            }
+  
+            let pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
+            //pstr = encodeURIComponent(pstr);
+            console.log(pstr)
+            this.filterResponse = await axios.get('/api/v2?' + pstr)                
+
             this.filterResult = this.filterResponse.data;
             // console.log(this.filterResult);
             //終了処理
@@ -72,8 +75,8 @@ export default {
         //特殊な入力データを加工する
         convertInputData: function (value){
             let result = {}
-            
-            // 5/3/5のような形式
+            result.collectible = Number(this.isCollectible);
+            // stats 5/3/5のような形式
             const stats = value.match(/([\d]+|\*)\/(\d+|\*)\/([\d\*]+|\*)/)
             if (stats){
                 console.log(stats)
@@ -83,14 +86,17 @@ export default {
                     health : stats[3]
                 })
             }
-
+            //不明な形式は名前に突っ込んでおく
+            else{
+                result.name = value;
+            }
             return result
         }
     },
 }
 </script>
 
-<style>
+<style lang="scss">
     #Filterbar{
         display: flex;
         width: 100%;
@@ -100,10 +106,21 @@ export default {
     #Filterbar-input {
         width: 70%;
         height: 100%;
-        border-radius: 3px;
+        border-radius: 2px;
     }
 
     #Filterbar-loading.hide {
         display: none;
+    }
+
+    #Filterbar-collectible-box{
+        position: relative;
+    }
+    #Filterbar-collectible-label{
+        font-size:90%;
+    }
+    #Filterbar-collectible-check{
+        display: inline;
+        vertical-align: bottom;
     }
 </style>

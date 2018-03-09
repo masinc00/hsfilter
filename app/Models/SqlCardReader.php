@@ -30,7 +30,11 @@ class SqlCardReader extends Model
                 //ワイルドカード時は何も返さない
                 if ($v === '*')
                     return "";
-                return "${k} = ${v}";            
+                return "${k} = ${v}";
+            //コレクション可能な値は1以外は除去
+            elseif ($k === 'collectible'):
+                //$vは数値ではない
+                return ($v == 1) ? "${k} = ${v}" : "";
             else:
                 return "${k} like '%${v}%'";
             endif;
@@ -38,7 +42,7 @@ class SqlCardReader extends Model
         //空要素を削除する
         $querys = array_filter($querys);
         $query_str = "select * from ".  $this->table_name . " where " . join(" and ", $querys);
-        // return $query_str;
+        //return $query_str;
         return DB::select($query_str);
     }
 
