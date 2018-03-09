@@ -1,18 +1,20 @@
 <template>
     <div class="FilterResultDetails" >
         <div class="FilterResultSimpleDetail" v-on:click="onClick">{{ value.name_enUS }}</div>
-        <div v-if="!detail_class.hide" v-bind:class="detail_class">
-            <div class="FilterResultsImages">
-                <img v-bind:class="nomalImagesClass" v-bind:src="imageUrl">
-                <img v-bind:class="goldenImagesClass" v-bind:src="ImageUrlGolden">
-            </div>
-            <table class="FilterResultDetailsTable">
-                <tr v-for="(item, key) in value" >
-                    <th>{{ key }}</th>
-                    <td>{{ item }}</td>
-                </tr>
-            </table>
-        </div>
+        <transition name="fade-details">
+            <div v-if="!detail_class.hide" v-bind:class="detail_class">
+                <div class="FilterResultsImages">
+                    <img v-bind:class="nomalImagesClass" v-bind:src="imageUrl">
+                    <img v-bind:class="goldenImagesClass" v-bind:src="ImageUrlGolden">
+                </div>
+                <table class="FilterResultDetailsTable">
+                    <tr v-for="(item, key) in value" >
+                        <th>{{ key }}</th>
+                        <td>{{ item }}</td>
+                    </tr>
+                </table>
+            </div>        
+        </transition>
     </div>
 </template>
 
@@ -92,5 +94,12 @@
 
     .FilterResultsImages{
         display: flex;
+    }
+
+    .fade-details-enter-active, .fade-details-leave-active {
+      transition: opacity .36s;
+    }
+    .fade-details-enter, .fade-details-leave-to /* .fade-leave-active below version 2.1.8 */ {
+      opacity: 0;
     }
 </style>
