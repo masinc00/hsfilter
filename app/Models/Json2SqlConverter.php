@@ -61,6 +61,7 @@ class Json2SqlConverter extends Model
             "collectible INTEGER",
             "cost INTEGER",
             "dbfId INTEGER",
+            "durability TEXT", //武器の回数
             "health INTEGER",
             "id TEXT primary key",
             "playRequirements TEXT",
@@ -116,6 +117,7 @@ class Json2SqlConverter extends Model
     const f_collectible = ":collectible";
     const f_cost = ":cost";
     const f_dbfId = ":dbfId";
+    const f_durability = ":durability";
     const f_health = ":health";
     const f_id = ":id";
     const f_playRequirements = ":playRequirements";
@@ -124,7 +126,7 @@ class Json2SqlConverter extends Model
     const f_set = ":set";
     const f_type = ":type";
 
-    const base_fields = [self::f_artist, self::f_attack, self::f_cardClass, self::f_collectible, self::f_cost, self::f_dbfId, 
+    const base_fields = [self::f_artist, self::f_attack, self::f_cardClass, self::f_collectible, self::f_cost, self::f_dbfId, self::f_durability,
             self::f_health, self::f_id, self::f_playRequirements, self::f_playerClass, self::f_rarity, self::f_set, self::f_type];
 
     //個別のデータを挿入する
@@ -136,6 +138,7 @@ class Json2SqlConverter extends Model
             self::f_collectible  => isset($item->collectible)? $item->collectible: "",
             self::f_cost         => isset($item->cost)       ? $item->cost       : "",
             self::f_dbfId        => isset($item->dbfId)      ? $item->dbfId      : "",
+            self::f_durability   => isset($item->durability) ? $item->durability : "",
             self::f_health       => isset($item->health)     ? $item->health     : "",
             self::f_id           => isset($item->id)         ? $item->id         : "",
             self::f_playRequirements => isset($item->playRequirements) ? json_encode($item->playRequirements) : "",
