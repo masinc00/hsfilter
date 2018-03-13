@@ -57,8 +57,8 @@ export default {
   
             let pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
             //pstr = encodeURIComponent(pstr);
-            console.log(pstr)
-            this.filterResponse = await axios.get('/api/v2?' + pstr)                
+            // console.log(pstr)
+            this.filterResponse = await axios.get('api/v2?' + pstr)                
 
             this.filterResult = this.filterResponse.data;
             // console.log(this.filterResult);
