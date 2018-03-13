@@ -19,5 +19,6 @@ Route::get('/' , 'MainController@index');
 
 Route::get('api', 'JsonCardController@index');
 Route::get('api/v2', 'JsonCardController2@index');
+Route::post('api/v2', 'JsonCardController2@postIndex');
 
 Route::get('json/convert', 'Json2SqlConvertController@index');

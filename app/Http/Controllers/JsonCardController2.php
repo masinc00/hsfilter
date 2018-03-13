@@ -17,4 +17,11 @@ class JsonCardController2 extends Controller
         return $cardreader->filter($request->all());
         //return "OK";
     }
+
+    public function postIndex(Request $request){
+        $cardreader = SqlCardReader::get();
+        
+        //postは取得できない
+        return $cardreader->filter( $request->all());
+    }
 }

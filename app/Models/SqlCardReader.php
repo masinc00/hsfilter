@@ -16,12 +16,8 @@ class SqlCardReader extends Model
         $this->table_name = $table_name;
     }
 
-    /**
-     * @param $params ["name" => "value"]形式で値を渡す
-     */
-    public function filter($params){
-        
-        $querys = array_map(function ($k, $v) {
+    // key => value をsql形式に変換する
+    public function convertSql($k , $v){
             //複数の言語に対応しているもの
             if ($k === 'name' || $k === 'text' || $k === 'flavor'):
                 return "(${k}_enus like '%$v%' or ${k}_jajp like '%$v%')";
@@ -34,16 +30,54 @@ class SqlCardReader extends Model
             //コレクション可能な値は1以外は除去
             elseif ($k === 'collectible'):
                 //$vは数値ではない
-                return ($v == 1) ? "${k} = ${v}" : "";
+                return ($v == '1') ? "${k} = ${v}" : "";
             else:
                 return "${k} like '%${v}%'";
             endif;
-        }, array_keys($params), array_values($params));
+    }
+
+    /**
+     * @param $params ["name" => "value"]形式で値を渡す
+     */
+    public function filter($params){
+
+        $querys = array_map(function ($k,$v){return $this->convertSql($k, $v);} , array_keys($params), array_values($params));
         //空要素を削除する
         $querys = array_filter($querys);
         $query_str = "select * from ".  $this->table_name . " where " . join(" and ", $querys);
         //return $query_str;
         return DB::select($query_str);
+    }
+
+    public function filterJsonInnner($json, $join_type='and')
+    {
+        $result = [];
+        $arr - array($json);
+
+        foreach ($arr as $key => $value){
+            if ($key === 'or'):
+                $result += $this->filterJsonInnner($value, 'or');
+            elseif ($key === 'and'):
+                $result += $this->filterJsonInnner($value, 'and');
+            else:
+                $result += $this->convertSql($key, $value);
+            endif;
+        }
+        $result = array_filter($result);
+        return '(' . join(" $join_type ", $result) . ')';
+    }
+
+    /*
+        {
+            and:$params1,
+            or: $params2,
+            and: { or: $params3, and :$params4}
+        }
+    */
+    public function filterJson($json, $root_join_type = 'and'){
+        $query_str = "select * from ".  $this->table_name . " where " . $this->filterJsonInnter($json, $root_join_type);
+        return DB::select($query_str);
+
     }
 
     static $cardReader;

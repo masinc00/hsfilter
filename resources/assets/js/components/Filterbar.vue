@@ -30,14 +30,13 @@ export default {
 
         onKeyup: async function(e){
             // console.log(e)
-            await this.getApi(e.target.value)
-            
+            // await this.getApi(e.target.value)
+            await this.postApi(e.target.value)
             this.oldText = e.target.value;
                             
         },
 
-        //Apiから必要なjsonファイルを取得する
-        getApi: _.debounce(async function (value) {
+        initFetch:function (){
             //準備処理
             // if (this.oldText === value)
                 // return
@@ -48,19 +47,11 @@ export default {
 
             //ローディングイメージを隠さない
             this.loading_class.hide = false
-            
-            //実際の処理
-            const params = this.convertInputData(value)
-            if (params.length === 0){
-                return;
-            }
-  
-            let pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
-            //pstr = encodeURIComponent(pstr);
-            // console.log(pstr)
-            this.filterResponse = await axios.get('api/v2?' + pstr)                
 
-            this.filterResult = this.filterResponse.data;
+        },
+        
+        finalFetch:function (data) {
+            this.filterResult = data;
             // console.log(this.filterResult);
             //終了処理
             this.filterResponse = null
@@ -68,12 +59,42 @@ export default {
 
             //親にデータを取得したことを通知
             // console.log("filterbar", this.filterResult)
-            this.$emit("onGetApi", this.filterResult)           
+            this.$emit("onGetApi", data)           
             //console.log(this.result)
+        },
+
+        postApi: _.debounce(async function (value){
+            this.initFetch()
+            const params = this.convertInputData(value, true)
+            if (params.length === 0){
+                return;
+            }
+            // console.log(params)
+            this.filterResponse = await axios.post('api/v2', params) 
+
+            // console.log(this.filterResponse.data)
+            this.finalFetch(this.filterResponse.data)
+        }, 300),
+        //Apiから必要なjsonファイルを取得する
+        getApi: _.debounce(async function (value) {
+            this.initFetch();
+            //実際の処理
+            const params = this.convertInputData(value)
+            if (params.length === 0){
+                return;
+            }
+
+            let pstr = _.map(params, (v,k) => `${k}=${v}`).join("&")
+            //pstr = encodeURIComponent(pstr);
+            // console.log(pstr)
+            this.filterResponse = await axios.get('api/v2?' + pstr)                
+
+            this.finalFetch(this.filterResponse.data);
+
             }, 300),
 
         //特殊な入力データを加工する
-        convertInputData: function (value){
+        convertInputData: function (value, is_post = false){
             let result = {}
             result.collectible = Number(this.isCollectible);
             // stats 5/3/5のような形式
@@ -91,7 +112,7 @@ export default {
                 result.name = value;
             }
             return result
-        }
+        },
     },
 }
 </script>
